@@ -1,9 +1,4 @@
 book
 src
 book.toml
-<<<<<<< HEAD
 .vscode
-=======
-.vscode
-.gitignore
->>>>>>> ddec1d4051b527e75abddeac494fe1d7a0dd16c1
