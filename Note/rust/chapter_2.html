@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>数组和字符串 - study forever</title>
+        <title>语句和表达式 - study forever</title>
         
         
 
@@ -44,6 +44,9 @@
         <!-- Custom theme stylesheets -->
         
 
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
         
     </head>
     <body>
@@ -95,7 +98,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../rust/index.html">rust深入浅出</a></li><li class="chapter-item expanded "><a href="../rust/chapter_1.html"><strong aria-hidden="true">1.</strong> 变量和类型</a></li><li class="chapter-item expanded "><a href="../rust/chapter_2.html"><strong aria-hidden="true">2.</strong> 语句和表达式</a></li><li class="chapter-item expanded "><a href="../rust/chapter_3.html"><strong aria-hidden="true">3.</strong> 函数</a></li><li class="chapter-item expanded "><a href="../rust/chapter_4.html"><strong aria-hidden="true">4.</strong> trait</a></li><li class="chapter-item expanded "><a href="../rust/chapter_5.html" class="active"><strong aria-hidden="true">5.</strong> 数组和字符串</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../rust/index.html">rust深入浅出</a></li><li class="chapter-item expanded "><a href="../rust/chapter_1.html"><strong aria-hidden="true">1.</strong> 变量和类型</a></li><li class="chapter-item expanded "><a href="../rust/chapter_2.html" class="active"><strong aria-hidden="true">2.</strong> 语句和表达式</a></li><li class="chapter-item expanded "><a href="../rust/chapter_3.html"><strong aria-hidden="true">3.</strong> 函数</a></li><li class="chapter-item expanded "><a href="../rust/chapter_4.html"><strong aria-hidden="true">4.</strong> trait</a></li><li class="chapter-item expanded "><a href="../rust/chapter_5.html"><strong aria-hidden="true">5.</strong> 数组和字符串</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -163,50 +166,86 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="数组和字符串"><a class="header" href="#数组和字符串">数组和字符串</a></h2>
-<h3 id="数组"><a class="header" href="#数组">数组</a></h3>
+                        <h1 id="表达式与语句"><a class="header" href="#表达式与语句">表达式与语句</a></h1>
+<h2 id="语句"><a class="header" href="#语句">语句</a></h2>
 <ul>
-<li><code>[T ; n]</code></li>
-<li>同类型数字互相赋值</li>
-<li>入参复制mode</li>
+<li>;</li>
+<li>不产生值（ :() ）</li>
+<li>{语句} =&gt; 表达式</li>
 </ul>
-<h4 id="内置方法"><a class="header" href="#内置方法">内置方法</a></h4>
-<ol>
-<li>比较</li>
-<li>遍历（数组切片）</li>
-</ol>
-<h4 id="多维数组"><a class="header" href="#多维数组">多维数组</a></h4>
+<h2 id="表达式"><a class="header" href="#表达式">表达式</a></h2>
 <ul>
-<li><code>[[T;m];n]</code></li>
+<li>不带;</li>
+<li>左值，右值</li>
 </ul>
-<h4 id="数组切片"><a class="header" href="#数组切片">数组切片</a></h4>
+<h3 id="运算表达式"><a class="header" href="#运算表达式">运算表达式</a></h3>
 <ul>
-<li><code>（借用）&amp;array-&gt;Slice</code>（数组切片：数组到指针的安全转换）</li>
-<li><code>Slice: &amp;[T]</code>（指针）</li>
-<li><strong>对数组没有所有权（不懂，搁置）</strong></li>
-<li><code>size_of::&lt;&amp;[T;n]&gt;() = one point</code></li>
-<li><code>size_of::&lt;&amp;[T]&gt;() = two point</code>（携带长度信息）</li>
-</ul>
-<h4 id="dst和胖指针"><a class="header" href="#dst和胖指针">DST和胖指针</a></h4>
+<li>‘+ - * / %’</li>
+<li>连续比较问题</li>
+<li>位运算</li>
+<li>逻辑运算
 <ul>
-<li><code>fat pointer -&gt; DST</code></li>
-<li><code>Dynamic Sized Type</code>：编译期无法确定占用空间</li>
-<li><code>[T]:DST；str:DST</code></li>
-<li><code>&amp;[T]:fat pointer -&gt; [T]；&amp;str: fat pointer -&gt; str</code></li>
-<li><code>::size_of::&lt;DST&gt;() = undefined</code></li>
-<li><code>::size_of::&lt;fat pointer&gt;() = defined</code></li>
+<li>短路现象 （ 逻辑与 | 逻辑或 ）</li>
 </ul>
+</li>
+</ul>
+<h3 id="赋值表达式"><a class="header" href="#赋值表达式">赋值表达式</a></h3>
+<ul>
+<li>复制或移动问题（Chapter11）</li>
+<li>类型：unit（空的tuple（））
+<ul>
+<li>=&gt; 不可连续赋值 </li>
+<li>=&gt; 避免条件判断 == 写成 = ，条件表达式类型必须bool类型</li>
+</ul>
+</li>
+<li>组合赋值表达式（+=等）
+<blockquote>
 <p><em>Note：</em></p>
-<ol>
-<li>只能通过指针间接<em>创建和操作</em>DST</li>
-<li>局部变量和函数参数必须在编译期知道其大小（未实现Sized约束）, 所以不能是DST</li>
-<li>enum不能包含DST</li>
-<li>struct只能最后一个元素为DST，此时struct就是一个DST</li>
-<li>胖指针的设计，避免参数传递退化为裸指针，丢失长度信息的问题</li>
-</ol>
-<h4 id="range"><a class="header" href="#range">Range</a></h4>
 <ul>
-<li></li>
+<li>不支持 <code>++</code>及<code>--</code> 同 python</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h3 id="语句块表达式"><a class="header" href="#语句块表达式">语句块表达式</a></h3>
+<ul>
+<li>按照顺序执行语句块内语句，并返回最后一个表达式类型</li>
+</ul>
+<h3 id="if-else"><a class="header" href="#if-else">if-else</a></h3>
+<ul>
+<li>语句块必须有大括号</li>
+<li>if condition不需要括号</li>
+<li>if,else类型必须一致，else分支省略，默认其为()</li>
+</ul>
+<h3 id="loop"><a class="header" href="#loop">loop</a></h3>
+<ul>
+<li>无限死循环</li>
+<li>生命周期标识符， ‘a:loop { break ‘a} 控制跳出层数</li>
+<li>作为表达式，<code>break value; </code></li>
+<li>发散类型</li>
+</ul>
+<h3 id="while"><a class="header" href="#while">while</a></h3>
+<ul>
+<li>loop 与 while的区别</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let x;
+loop {x = 1; break;} //静态分析得出x=1必然在println！之前执行过
+println!(&quot;{}&quot;, x); //可以通过编译
+
+let x;
+while true {x=1; break;} //while语句的执行条件跟表达式在运行阶段的值有关，因此不确定x是否初始化
+println!(&quot;{}&quot;, x); //不能通过编译（use of possibly uninitialized variable）
+<span class="boring">}
+</span></code></pre></pre>
+<h3 id="for"><a class="header" href="#for">for</a></h3>
+<ul>
+<li>其他语言的for-each</li>
+<li><code>for i in container {}</code></li>
+<li>利用迭代器遍历</li>
+<li>支持自定义类型（迭代器，容器）</li>
 </ul>
 
                     </main>
@@ -214,11 +253,15 @@
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../rust/chapter_4.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../rust/chapter_1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
+                        
+                            <a rel="next" href="../rust/chapter_3.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
                         
 
                         <div style="clear: both"></div>
@@ -228,11 +271,15 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="../rust/chapter_4.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../rust/chapter_1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
+                
+                    <a rel="next" href="../rust/chapter_3.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
                 
             </nav>
 
@@ -255,6 +302,23 @@
         </script>
         
 
+        
+        <!-- Google Analytics Tag -->
+        <script type="text/javascript">
+            var localAddrs = ["localhost", "127.0.0.1", ""];
+
+            // make sure we don't activate google analytics if the developer is
+            // inspecting the book locally...
+            if (localAddrs.indexOf(document.location.hostname) === -1) {
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-123456-7', 'auto');
+                ga('send', 'pageview');
+            }
+        </script>
         
 
         

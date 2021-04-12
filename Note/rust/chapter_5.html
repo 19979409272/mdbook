@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>函数 - study forever</title>
+        <title>数组和字符串 - study forever</title>
         
         
 
@@ -44,6 +44,9 @@
         <!-- Custom theme stylesheets -->
         
 
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
         
     </head>
     <body>
@@ -95,7 +98,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../rust/index.html">rust深入浅出</a></li><li class="chapter-item expanded "><a href="../rust/chapter_1.html"><strong aria-hidden="true">1.</strong> 变量和类型</a></li><li class="chapter-item expanded "><a href="../rust/chapter_2.html"><strong aria-hidden="true">2.</strong> 语句和表达式</a></li><li class="chapter-item expanded "><a href="../rust/chapter_3.html" class="active"><strong aria-hidden="true">3.</strong> 函数</a></li><li class="chapter-item expanded "><a href="../rust/chapter_4.html"><strong aria-hidden="true">4.</strong> trait</a></li><li class="chapter-item expanded "><a href="../rust/chapter_5.html"><strong aria-hidden="true">5.</strong> 数组和字符串</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../rust/index.html">rust深入浅出</a></li><li class="chapter-item expanded "><a href="../rust/chapter_1.html"><strong aria-hidden="true">1.</strong> 变量和类型</a></li><li class="chapter-item expanded "><a href="../rust/chapter_2.html"><strong aria-hidden="true">2.</strong> 语句和表达式</a></li><li class="chapter-item expanded "><a href="../rust/chapter_3.html"><strong aria-hidden="true">3.</strong> 函数</a></li><li class="chapter-item expanded "><a href="../rust/chapter_4.html"><strong aria-hidden="true">4.</strong> trait</a></li><li class="chapter-item expanded "><a href="../rust/chapter_5.html" class="active"><strong aria-hidden="true">5.</strong> 数组和字符串</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -163,67 +166,62 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="函数"><a class="header" href="#函数">函数</a></h2>
-<h3 id="简介"><a class="header" href="#简介">简介</a></h3>
+                        <h2 id="数组和字符串"><a class="header" href="#数组和字符串">数组和字符串</a></h2>
+<h3 id="数组"><a class="header" href="#数组">数组</a></h3>
 <ul>
-<li>fn</li>
-<li>-&gt;返回类型</li>
-<li>return可选</li>
-<li>参数列表模式解构（Chapter6）</li>
-<li>头等公民</li>
+<li><code>[T ; n]</code></li>
+<li>同类型数字互相赋值</li>
+<li>入参复制mode</li>
 </ul>
-<blockquote>
+<h4 id="内置方法"><a class="header" href="#内置方法">内置方法</a></h4>
+<ol>
+<li>比较</li>
+<li>遍历（数组切片）</li>
+</ol>
+<h4 id="多维数组"><a class="header" href="#多维数组">多维数组</a></h4>
+<ul>
+<li><code>[[T;m];n]</code></li>
+</ul>
+<h4 id="数组切片"><a class="header" href="#数组切片">数组切片</a></h4>
+<ul>
+<li><code>（借用）&amp;array-&gt;Slice</code>（数组切片：数组到指针的安全转换）</li>
+<li><code>Slice: &amp;[T]</code>（指针）</li>
+<li><strong>对数组没有所有权（不懂，搁置）</strong></li>
+<li><code>size_of::&lt;&amp;[T;n]&gt;() = one point</code></li>
+<li><code>size_of::&lt;&amp;[T]&gt;() = two point</code>（携带长度信息）</li>
+</ul>
+<h4 id="dst和胖指针"><a class="header" href="#dst和胖指针">DST和胖指针</a></h4>
+<ul>
+<li><code>fat pointer -&gt; DST</code></li>
+<li><code>Dynamic Sized Type</code>：编译期无法确定占用空间</li>
+<li><code>[T]:DST；str:DST</code></li>
+<li><code>&amp;[T]:fat pointer -&gt; [T]；&amp;str: fat pointer -&gt; str</code></li>
+<li><code>::size_of::&lt;DST&gt;() = undefined</code></li>
+<li><code>::size_of::&lt;fat pointer&gt;() = defined</code></li>
+</ul>
 <p><em>Note：</em></p>
+<ol>
+<li>只能通过指针间接<em>创建和操作</em>DST</li>
+<li>局部变量和函数参数必须在编译期知道其大小（未实现Sized约束）, 所以不能是DST</li>
+<li>enum不能包含DST</li>
+<li>struct只能最后一个元素为DST，此时struct就是一个DST</li>
+<li>胖指针的设计，避免参数传递退化为裸指针，丢失长度信息的问题</li>
+</ol>
+<h4 id="range"><a class="header" href="#range">Range</a></h4>
 <ul>
-<li>不写返回类型默认返回unit</li>
-<li>可嵌套item =&gt; 避免污染命名空间</li>
-<li>每个函数具有自己独特的类型（即使特征相同）</li>
+<li></li>
 </ul>
-</blockquote>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>// add1 add2 fn((i32, i32)) -&gt; i32
-let mut func = add1;
-func = add2;  //error
-
-// func转为通用fn类型
-// as 
-let mut func = add1 as fn((i32, i32))-&gt;i32;
-// 显示类型标记
-let mut func : fn((i32, i32))-&gt;i32 = add1;
-<span class="boring">}
-</span></code></pre></pre>
-<h3 id="发散函数"><a class="header" href="#发散函数">发散函数</a></h3>
-<ul>
-<li>panic!()及基于它的函数</li>
-<li>发散类型（可以被转为任意类型）</li>
-</ul>
-<h3 id="main函数"><a class="header" href="#main函数">main函数</a></h3>
-<ul>
-<li>单独API处理传递参数及返回状态码</li>
-</ul>
-<h3 id="const-fn"><a class="header" href="#const-fn">const fn</a></h3>
-<ul>
-<li>编译期执行</li>
-<li>编译期常量</li>
-</ul>
-<h3 id="函数递归调用"><a class="header" href="#函数递归调用">函数递归调用</a></h3>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../rust/chapter_2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../rust/chapter_4.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
-                        
-                            <a rel="next" href="../rust/chapter_4.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
                         
 
                         <div style="clear: both"></div>
@@ -233,15 +231,11 @@ let mut func : fn((i32, i32))-&gt;i32 = add1;
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="../rust/chapter_2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../rust/chapter_4.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
-                
-                    <a rel="next" href="../rust/chapter_4.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
                 
             </nav>
 
@@ -264,6 +258,23 @@ let mut func : fn((i32, i32))-&gt;i32 = add1;
         </script>
         
 
+        
+        <!-- Google Analytics Tag -->
+        <script type="text/javascript">
+            var localAddrs = ["localhost", "127.0.0.1", ""];
+
+            // make sure we don't activate google analytics if the developer is
+            // inspecting the book locally...
+            if (localAddrs.indexOf(document.location.hostname) === -1) {
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-123456-7', 'auto');
+                ga('send', 'pageview');
+            }
+        </script>
         
 
         
