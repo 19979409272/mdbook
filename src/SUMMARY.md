@@ -1,6 +1,7 @@
 # Summary
 
-[rust深入浅出](./rust/README.md)   
+# rust
+- [rust深入浅出](./rust/README.md)   
 - [变量和类型](./rust/chapter_1.md)
 - [语句和表达式](./rust/chapter_2.md)
 - [函数](./rust/chapter_3.md)
