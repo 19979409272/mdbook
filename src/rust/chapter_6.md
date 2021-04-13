@@ -63,6 +63,17 @@ let mut x: &mut i32;
 
 ## if-let和while-let
 - if - let ：`if let PATTERN = EXPRESSION { BODY } [else]`
+```rust
+// Some(value) 与 x: Option<i32>的成员Some<i32>进行模式匹配
+// 如果Option状态为None，则不执行if代码块[如果有else分支，则执行else分支]
+// 避免了对None值进行操作
+// 对于类型参数是指针类型非常有用
+if let Some(value) = x {
+    //对x内的值操作(value)
+} else {
+    println!("if分支不匹配");
+}
+```
 - while - let
 - `|`
 - 变量绑定
