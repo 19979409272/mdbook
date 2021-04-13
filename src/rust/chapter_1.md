@@ -70,7 +70,7 @@
 
 - tuple struct
     - 有类型名， 无成员名（圆括号）
-
+    - 未实现Copy trait
     > *Note*  
     > - 只含括一个元素（newtype idiom），创建一个新的类型，可以有不同的方法（代理？）， 而type alias只是一个别名
 
