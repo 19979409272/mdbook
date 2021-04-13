@@ -78,3 +78,6 @@ let oth_fat_arr : &[i32] = &fat_arr[2..]; //Rangefrom &fat_arr[2..] = &&[i32][2.
 - 堆
 - 内部实现类似：`std::Vec<u8>`
 - `impl Deref<Target=str> for String`
+
+    > *Note：*
+    > - `not impl Copy for String`
