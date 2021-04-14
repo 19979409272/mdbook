@@ -12,3 +12,4 @@
         - [宏](./rust/part1/chapter_8.md)
     - [第二部分](./rust/part2/README.md)
         - [内存管理基础](./rust/part2/chapter_9.md)
+        - [所有权和移动语义](./rust/part2/chapter_10.md)
