@@ -1,7 +1,5 @@
-# MdBook
-
-## 学习笔记
-
+# 学习笔记
+## Rust深入浅出
 ### 基础知识
 
 - [变量和类型](./src/rust/part1/chapter_1.md)
