@@ -1,0 +1,365 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>深入类型系统 - study forever</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../../favicon.png">
+        
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../../rust/index.html"><strong aria-hidden="true">1.</strong> rust深入浅出</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../rust/part1/index.html"><strong aria-hidden="true">1.1.</strong> 第一部分</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../rust/part1/chapter_1.html"><strong aria-hidden="true">1.1.1.</strong> 变量和类型</a></li><li class="chapter-item expanded "><a href="../../rust/part1/chapter_2.html"><strong aria-hidden="true">1.1.2.</strong> 语句和表达式</a></li><li class="chapter-item expanded "><a href="../../rust/part1/chapter_3.html"><strong aria-hidden="true">1.1.3.</strong> 函数</a></li><li class="chapter-item expanded "><a href="../../rust/part1/chapter_4.html"><strong aria-hidden="true">1.1.4.</strong> trait</a></li><li class="chapter-item expanded "><a href="../../rust/part1/chapter_5.html"><strong aria-hidden="true">1.1.5.</strong> 数组和字符串</a></li><li class="chapter-item expanded "><a href="../../rust/part1/chapter_6.html"><strong aria-hidden="true">1.1.6.</strong> 模式解构</a></li><li class="chapter-item expanded "><a href="../../rust/part1/chapter_7.html" class="active"><strong aria-hidden="true">1.1.7.</strong> 深入类型系统</a></li><li class="chapter-item expanded "><a href="../../rust/part1/chapter_8.html"><strong aria-hidden="true">1.1.8.</strong> 宏</a></li></ol></li><li class="chapter-item expanded "><a href="../../rust/part2/index.html"><strong aria-hidden="true">1.2.</strong> 第二部分</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../rust/part2/chapter_9.html"><strong aria-hidden="true">1.2.1.</strong> 内存管理基础</a></li></ol></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">study forever</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="深入类型系统"><a class="header" href="#深入类型系统">深入类型系统</a></h1>
+<h2 id="代数类型系统adt"><a class="header" href="#代数类型系统adt">代数类型系统（ADT）</a></h2>
+<ul>
+<li>”基数”（cardinality）：一个类型所有取值的可能性
+<ul>
+<li>Cardinality(unit) = 1 : ()</li>
+<li>Cardinality(bool) = 2 : true false</li>
+<li>Cardinality(i32)  = $2^{32}$</li>
+</ul>
+</li>
+<li>“同构”：复合类型的内部类型相同，基数一样，它们携带的信息量一样</li>
+<li><code>Cardinality(Option&lt;T&gt;) = Cardinality(T) + 1</code></li>
+<li>类型类比代数的变量，类型间的组合类比代数的运算</li>
+<li><code>空enum</code>: 0，<code>空struct</code> | <code>unit</code>: 1 </li>
+<li><code>enum</code>：和，<code>struct</code>：积，<code>array</code>：乘方...</li>
+</ul>
+<h2 id="never-type"><a class="header" href="#never-type">Never Type</a></h2>
+<ul>
+<li><code>Cardinality(T) = 2^bits_of(T)</code></li>
+<li><code>unit | 空struct</code> 类比1，所以<code>bits_of(()) = log(1) = 0</code></li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>//定义HashSet只是将HashMap的“value”指定为unit
+pub struct HashSet&lt;T, s = RandomState&gt; {
+    map: HashMap&lt;T, (), S&gt;,
+}
+<span class="boring">}
+</span></code></pre></pre>
+<ul>
+<li>Never Type的属性：
+<ul>
+<li><code>Cardinality(Never) = 0</code></li>
+<li><code>bits_of(Nerver) = log(0) = -∞</code></li>
+<li>可以被转换成任意类型</li>
+<li>根本不可能返回 </li>
+<li>运行时不可能存在</li>
+<li>根本不可能执行</li>
+</ul>
+</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// continue;语句指定为nerver
+// 编译器判断如下：
+// 1. else分支类型与if一致
+// 2. 执行到else分支，根本不可能对x赋值，会进入下一次循环
+// 3. 后面的代码不可能执行
+// 一切都在类型系统得到统一
+let x: i32 = if cond { 1 } else { continue; }   
+<span class="boring">}
+</span></code></pre></pre>
+<ul>
+<li>!: never </li>
+<li><code>diverging function -&gt; never</code> </li>
+</ul>
+<p><em>Note：</em></p>
+<ul>
+<li>完整的never type的意义：
+<ol>
+<li><strong>可以使得泛型代码兼容diverging function</strong></li>
+</ol>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn call_fn&lt;T, F: Fn(i32) -&gt; T&gt; (f: F, arg: i32) -&gt; T { f(arg) }
+//不把!当成一个真正意义上的的类型，那么这句话就编译错误，因为只有类型才能替换类型参数
+call_fn(std::process::exit, 0);
+<span class="boring">}
+</span></code></pre></pre>
+<ol start="2">
+<li><strong>更好的死代码检查</strong> (<strong>看不懂</strong>)</li>
+</ol>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let t = std::thread::spawn(|| panic!(&quot;nope&quot;));
+t.join().unwrap();
+println!(&quot;hello);
+<span class="boring">}
+</span></code></pre></pre>
+<ol start="3">
+<li><strong>可以用更好的方式表达“不可能出现的情况”</strong>
+<ul>
+<li><code>type Err = !</code></li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="再谈option类型"><a class="header" href="#再谈option类型">再谈Option类型</a></h2>
+<ul>
+<li><strong>空指针问题</strong>：违背类型系统</li>
+</ul>
+<blockquote>
+<p>Type is a classification identifying one of various types of data, that determines the possible values for that, the operations that can be done on values of that type, the meaning of the data, and the way values of that type can be stored.</p>
+</blockquote>
+<blockquote>
+<p>null实际上是在类型系统上打开了一个缺口，引入了一个必须在运行期特殊处理的特殊“值”。它就像一个全局的、无类型的singleton变量一样，可以无处不在，可以随意与任意指针实现自动类型转换。它让编译器的类型检查在此处失去了意义</p>
+</blockquote>
+<ul>
+<li>Rust利用ADT将空指针和非空指针区分，分别赋予不同的操作权限，禁止空指针的解引用：编译器和静态检查工具不可能知道一个变量在运行期的“值”，但是，如果一个null从一个“值”上升为一个“类型”，那么静态检查就能发挥作用。</li>
+<li>Option<T>是可空类型<code>enum Option&lt;T&gt; { None, Some(T) }</code></li>
+<li>无法直接调用T类型的成员函数
+<ul>
+<li>拆</li>
+<li>成员函数</li>
+</ul>
+</li>
+<li><strong>暂时略过</strong></li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../../rust/part1/chapter_6.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../../rust/part1/chapter_8.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../../rust/part1/chapter_6.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../../rust/part1/chapter_8.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3000/__livereload");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

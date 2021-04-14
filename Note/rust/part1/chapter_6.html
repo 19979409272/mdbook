@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>语句和表达式 - study forever</title>
+        <title>模式解构 - study forever</title>
         
         
 
@@ -18,28 +18,28 @@
         <meta name="theme-color" content="#ffffff" />
 
         
-        <link rel="icon" href="../favicon.svg">
+        <link rel="icon" href="../../favicon.svg">
         
         
-        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="shortcut icon" href="../../favicon.png">
         
-        <link rel="stylesheet" href="../css/variables.css">
-        <link rel="stylesheet" href="../css/general.css">
-        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
         
-        <link rel="stylesheet" href="../css/print.css" media="print">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
         
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
         
-        <link rel="stylesheet" href="../fonts/fonts.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
         
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../highlight.css">
-        <link rel="stylesheet" href="../tomorrow-night.css">
-        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
         
@@ -52,7 +52,7 @@
     <body>
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
-            var path_to_root = "../";
+            var path_to_root = "../../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
@@ -98,7 +98,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">rust</li><li class="chapter-item expanded "><a href="../rust/index.html"><strong aria-hidden="true">1.</strong> rust深入浅出</a></li><li class="chapter-item expanded "><a href="../rust/chapter_1.html"><strong aria-hidden="true">2.</strong> 变量和类型</a></li><li class="chapter-item expanded "><a href="../rust/chapter_2.html" class="active"><strong aria-hidden="true">3.</strong> 语句和表达式</a></li><li class="chapter-item expanded "><a href="../rust/chapter_3.html"><strong aria-hidden="true">4.</strong> 函数</a></li><li class="chapter-item expanded "><a href="../rust/chapter_4.html"><strong aria-hidden="true">5.</strong> trait</a></li><li class="chapter-item expanded "><a href="../rust/chapter_5.html"><strong aria-hidden="true">6.</strong> 数组和字符串</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../../rust/index.html"><strong aria-hidden="true">1.</strong> rust深入浅出</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../rust/part1/index.html"><strong aria-hidden="true">1.1.</strong> 第一部分</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../rust/part1/chapter_1.html"><strong aria-hidden="true">1.1.1.</strong> 变量和类型</a></li><li class="chapter-item expanded "><a href="../../rust/part1/chapter_2.html"><strong aria-hidden="true">1.1.2.</strong> 语句和表达式</a></li><li class="chapter-item expanded "><a href="../../rust/part1/chapter_3.html"><strong aria-hidden="true">1.1.3.</strong> 函数</a></li><li class="chapter-item expanded "><a href="../../rust/part1/chapter_4.html"><strong aria-hidden="true">1.1.4.</strong> trait</a></li><li class="chapter-item expanded "><a href="../../rust/part1/chapter_5.html"><strong aria-hidden="true">1.1.5.</strong> 数组和字符串</a></li><li class="chapter-item expanded "><a href="../../rust/part1/chapter_6.html" class="active"><strong aria-hidden="true">1.1.6.</strong> 模式解构</a></li><li class="chapter-item expanded "><a href="../../rust/part1/chapter_7.html"><strong aria-hidden="true">1.1.7.</strong> 深入类型系统</a></li><li class="chapter-item expanded "><a href="../../rust/part1/chapter_8.html"><strong aria-hidden="true">1.1.8.</strong> 宏</a></li></ol></li><li class="chapter-item expanded "><a href="../../rust/part2/index.html"><strong aria-hidden="true">1.2.</strong> 第二部分</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../rust/part2/chapter_9.html"><strong aria-hidden="true">1.2.1.</strong> 内存管理基础</a></li></ol></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -134,7 +134,7 @@
 
                     <div class="right-buttons">
                         
-                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         
@@ -166,86 +166,137 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="表达式与语句"><a class="header" href="#表达式与语句">表达式与语句</a></h1>
-<h2 id="语句"><a class="header" href="#语句">语句</a></h2>
+                        <h1 id="模式解构"><a class="header" href="#模式解构">模式解构</a></h1>
+<h2 id="简介"><a class="header" href="#简介">简介</a></h2>
 <ul>
-<li>;</li>
-<li>不产生值（ :() ）</li>
-<li>{语句} =&gt; 表达式</li>
-</ul>
-<h2 id="表达式"><a class="header" href="#表达式">表达式</a></h2>
-<ul>
-<li>不带;</li>
-<li>左值，右值</li>
-</ul>
-<h3 id="运算表达式"><a class="header" href="#运算表达式">运算表达式</a></h3>
-<ul>
-<li>‘+ - * / %’</li>
-<li>连续比较问题</li>
-<li>位运算</li>
-<li>逻辑运算
-<ul>
-<li>短路现象 （ 逻辑与 | 逻辑或 ）</li>
-</ul>
-</li>
-</ul>
-<h3 id="赋值表达式"><a class="header" href="#赋值表达式">赋值表达式</a></h3>
-<ul>
-<li>复制或移动问题（Chapter11）</li>
-<li>类型：unit（空的tuple（））
-<ul>
-<li>=&gt; 不可连续赋值 </li>
-<li>=&gt; 避免条件判断 == 写成 = ，条件表达式类型必须bool类型</li>
-</ul>
-</li>
-<li>组合赋值表达式（+=等）
-<blockquote>
-<p><em>Note：</em></p>
-<ul>
-<li>不支持 <code>++</code>及<code>--</code> 同 python</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<h3 id="语句块表达式"><a class="header" href="#语句块表达式">语句块表达式</a></h3>
-<ul>
-<li>按照顺序执行语句块内语句，并返回最后一个表达式类型</li>
-</ul>
-<h3 id="if-else"><a class="header" href="#if-else">if-else</a></h3>
-<ul>
-<li>语句块必须有大括号</li>
-<li>if condition不需要括号</li>
-<li>if,else类型必须一致，else分支省略，默认其为()</li>
-</ul>
-<h3 id="loop"><a class="header" href="#loop">loop</a></h3>
-<ul>
-<li>无限死循环</li>
-<li>生命周期标识符， ‘a:loop { break ‘a} 控制跳出层数</li>
-<li>作为表达式，<code>break value; </code></li>
-<li>发散类型</li>
-</ul>
-<h3 id="while"><a class="header" href="#while">while</a></h3>
-<ul>
-<li>loop 与 while的区别</li>
+<li>let语句中，<code>=</code>左边的就是模式，右边是需要被解构的内容</li>
 </ul>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let x;
-loop {x = 1; break;} //静态分析得出x=1必然在println！之前执行过
-println!(&quot;{}&quot;, x); //可以通过编译
-
-let x;
-while true {x=1; break;} //while语句的执行条件跟表达式在运行阶段的值有关，因此不确定x是否初始化
-println!(&quot;{}&quot;, x); //不能通过编译（use of possibly uninitialized variable）
+</span>// 构造，三个元素组合到一起
+let tuple = (1_i32, false, 3f32);
+// 相反，一个组合的数据结构，拆解，分成三个不同变量
+// 模式整体是一个变量名，其中引入了三个变量，分别绑定tuple的三个成员，模式整体与被解构内容类型一致
+let (head, center, tail) = tuple;
 <span class="boring">}
 </span></code></pre></pre>
-<h3 id="for"><a class="header" href="#for">for</a></h3>
 <ul>
-<li>其他语言的for-each</li>
-<li><code>for i in container {}</code></li>
-<li>利用迭代器遍历</li>
-<li>支持自定义类型（迭代器，容器）</li>
+<li>构造和解构遵循类似的语法</li>
+</ul>
+<h2 id="match"><a class="header" href="#match">match`</a></h2>
+<ul>
+<li>exhaustive-完整的匹配</li>
+<li><code>_</code></li>
+<li>enum上游依赖问题</li>
+<li><code>[non_exhaustive]</code></li>
+</ul>
+<h3 id="_"><a class="header" href="#_"><code>_</code></a></h3>
+<ul>
+<li>作用：
+<ul>
+<li>占位符，匹配到，但忽略</li>
+<li>忽略绑定</li>
+<li>所有权转移</li>
+</ul>
+<blockquote>
+<p><em>Note：</em></p>
+<ul>
+<li>不能作为变量名使用</li>
+<li>匹配一个元素</li>
+<li><code>..</code>匹配单个|多个元素</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h3 id="match也是表达式"><a class="header" href="#match也是表达式">match也是表达式</a></h3>
+<ul>
+<li>match表达式（非<code>;</code>）</li>
+<li>match每个分支是表达式</li>
+<li>每个分支需要具备同样的类型（要么<code>{}</code>包括，要么逗号分隔</li>
+<li>使用 <code>|</code> 匹配</li>
+<li>使用范围作匹配条件</li>
+</ul>
+<h3 id="guards"><a class="header" href="#guards">Guards</a></h3>
+<ul>
+<li>匹配看守（match guards)</li>
+<li><code>var: if condition =&gt; {code block} | expression,</code></li>
+<li>不保证不同分支重叠问题</li>
+</ul>
+<h3 id="变量绑定"><a class="header" href="#变量绑定">变量绑定</a></h3>
+<ul>
+<li><code>new_var: @ pattern =&gt; {code block} | expression,</code></li>
+<li>使用<code>|</code>需要保证每个<code>condition</code>绑定这个<code>new_var</code></li>
+</ul>
+<h3 id="ref和mut"><a class="header" href="#ref和mut">ref和mut</a></h3>
+<ul>
+<li>ref: 绑定被匹配对象的引用，避免所有权转移
+<blockquote>
+<p><em>Note：</em></p>
+<ul>
+<li><code>ref</code>是模式的一部分，只能出现在 <code>=</code> 左边</li>
+<li><code>&amp;</code> 是借用运算符，是表达式的一部分，只能出现在 <code>=</code> 右边</li>
+<li>检测类型
+<ul>
+<li><code>fn type_id(_: ()) {}</code>检测类型</li>
+<li><code>std::intrinsics::type_name::&lt;T&gt;()</code>检测类型</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</li>
+<li>mut：修饰的变量绑定有修改数据的能力</li>
+<li>重新绑定：mut修饰的变量绑定可重新绑定到其他同类型的变量</li>
+<li>“重新绑定”与”变量遮蔽”</li>
+<li>&amp;mut型引用：</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// mut x 的mut：代表变量x本身可变，因此能重新绑定（指针的指向能变化）
+// &amp;mut i32：修饰的指针，代表这个指针对于指向的内存具有修改能力
+let mut x: &amp;mut i32;
+<span class="boring">}
+</span></code></pre></pre>
+<h2 id="if-let和while-let"><a class="header" href="#if-let和while-let">if-let和while-let</a></h2>
+<ul>
+<li>if - let ：<code>if let PATTERN = EXPRESSION { BODY } [else]</code></li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Some(value) 与 x: Option&lt;i32&gt;的成员Some&lt;i32&gt;进行模式匹配
+// 如果Option状态为None，则不执行if代码块[如果有else分支，则执行else分支]
+// 避免了对None值进行操作
+// 对于类型参数是指针类型非常有用
+if let Some(value) = x {
+    //对x内的值操作(value)
+} else {
+    println!(&quot;if分支不匹配&quot;);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<ul>
+<li>
+<p>while - let</p>
+</li>
+<li>
+<p><code>|</code></p>
+</li>
+<li>
+<p>变量绑定</p>
+<blockquote>
+<p><em>Note：</em></p>
+<ul>
+<li>match一定要完整匹配</li>
+<li>if-let只匹配指定分支</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="函数和闭包参数做模式解构"><a class="header" href="#函数和闭包参数做模式解构">函数和闭包参数做模式解构</a></h2>
+<ul>
+<li>函数接受一个结构体参数，可以直接对参数做模式解构</li>
 </ul>
 
                     </main>
@@ -253,13 +304,13 @@ println!(&quot;{}&quot;, x); //不能通过编译（use of possibly uninitialize
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../rust/chapter_1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../rust/part1/chapter_5.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="../rust/chapter_3.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../../rust/part1/chapter_7.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -271,13 +322,13 @@ println!(&quot;{}&quot;, x); //不能通过编译（use of possibly uninitialize
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="../rust/chapter_1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../rust/part1/chapter_5.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a rel="next" href="../rust/chapter_3.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../../rust/part1/chapter_7.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -315,14 +366,14 @@ println!(&quot;{}&quot;, x); //不能通过编译（use of possibly uninitialize
         
 
         
-        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
         
 
-        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
         
