@@ -36,7 +36,6 @@
 
 ### Range
 - `begin..end` 语法糖，范围：`[)`
-- `->std::ops::Range<_>`，没有实现 `Copy trait`
 - 实现了`Iterator trait`
 - Range其他类型:
     - Rangefrom：`begin..`
@@ -78,6 +77,3 @@ let oth_fat_arr : &[i32] = &fat_arr[2..]; //Rangefrom &fat_arr[2..] = &&[i32][2.
 - 堆
 - 内部实现类似：`std::Vec<u8>`
 - `impl Deref<Target=str> for String`
-
-    > *Note：*
-    > - `not impl Copy for String`
